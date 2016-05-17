@@ -66,11 +66,11 @@ def command_motor_2(speed):
         pi.write(motor_2_in4, 0)
 
 
-#command_motor_1(50)
+command_motor_1(50)
 command_motor_2(50)
 time.sleep(1.0)
 
-#command_motor_1(-50)
+command_motor_1(-50)
 command_motor_2(-50)
 time.sleep(1.0)
 
