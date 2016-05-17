@@ -5,18 +5,29 @@ motor_1_pwm = 4
 motor_1_in1 = 17
 motor_1_in2 = 27
 
+motor_2_pwm = 16
+motor_2_in4 = 20
+motor_2_in3 = 21
 
 #connect to pigpiod daemon
 pi = pigpio.pi()
 
-# setup pin as an output
-pi.set_mode(motor_1_pwm, pigpio.OUTPUT)
-pi.set_mode(motor_1_in1, pigpio.OUTPUT)
-pi.set_mode(motor_1_in2, pigpio.OUTPUT)
+# set all to outputs
+all_list = [motor_1_pwm, motor_1_in1, motor_1_in2, \
+            motor_2_pwm, motor_2_in4, motor_2_in3]
+
+for pin in all_list:
+    pi.set_mode(pin, pigpio.OUTPUT)
 
 # pi set frequency
-pi.set_PWM_frequency(motor_1_pwm, 1000)
-pi.set_PWM_range(motor_1_pwm, 100)
+pwm_pins = [motor_1_pwm, motor_2_pwm]
+
+# non-pwm pins are direction control pins
+direction_pins = [pin for pin in all_list if pin not in pwm_pins]
+
+for pin in pwm_pins:
+    pi.set_PWM_frequency(pin, 1000)
+    pi.set_PWM_range(pin, 100)
 
 
 def command_motor_1(speed):
@@ -35,20 +46,44 @@ def command_motor_1(speed):
         pi.set_PWM_dutycycle(motor_1_pwm,0)
         pi.write(motor_1_in1, 0)
         pi.write(motor_1_in2, 0)
-        
 
-command_motor_1(50)
+
+def command_motor_2(speed):
+    if speed > 0:
+        print('forward')
+        pi.write(motor_2_in3, 0)
+        pi.write(motor_2_in4, 1)
+        pi.set_PWM_dutycycle(motor_2_pwm,speed)
+    elif speed < 0:
+        print('reverse')
+        pi.write(motor_2_in3, 1)
+        pi.write(motor_2_in4, 0)
+        pi.set_PWM_dutycycle(motor_2_pwm,abs(speed))
+    else:
+        print('stopping')
+        pi.set_PWM_dutycycle(motor_2_pwm,0)
+        pi.write(motor_2_in3, 0)
+        pi.write(motor_2_in4, 0)
+
+
+#command_motor_1(50)
+command_motor_2(50)
 time.sleep(1.0)
 
-command_motor_1(-50)
+#command_motor_1(-50)
+command_motor_2(-50)
 time.sleep(1.0)
+
 
 #cleanup
-pi.set_PWM_dutycycle(motor_1_pwm,0)
-pi.set_mode(motor_1_pwm, pigpio.INPUT)
-pi.write(motor_1_in1,0)
-pi.set_mode(motor_1_in1, pigpio.INPUT)
-pi.write(motor_1_in2,0)
-pi.set_mode(motor_1_in2, pigpio.INPUT)
+for pin in pwm_pins:
+    pi.set_PWM_dutycycle(pin,0)
+
+for pin in direction_pins:
+    pi.write(pin,0)
+    
+for pin in all_list:
+    pi.set_mode(pin, pigpio.INPUT)
+    
 #disconnect
 pi.stop()
