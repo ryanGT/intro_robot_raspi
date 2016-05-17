@@ -70,9 +70,21 @@ command_motor_1(50)
 command_motor_2(50)
 time.sleep(1.0)
 
+command_motor_1(-25)
+command_motor_2(-25)
+time.sleep(0.5)
+
 command_motor_1(-50)
 command_motor_2(-50)
-time.sleep(1.0)
+time.sleep(0.5)
+
+command_motor_1(50)
+command_motor_2(-50)
+time.sleep(0.5)
+
+command_motor_1(-50)
+command_motor_2(50)
+time.sleep(0.5)
 
 
 #cleanup
