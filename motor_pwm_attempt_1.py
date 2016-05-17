@@ -34,11 +34,11 @@ def command_motor_1(speed):
         pi.write(motor_1_in2, 0)
         
 
-command_motor_1(25)
-time.sleep(0.5)
+command_motor_1(50)
+time.sleep(1.0)
 
-command_motor_1(-25)
-time.sleep(0.5)
+command_motor_1(-50)
+time.sleep(1.0)
 
 #cleanup
 pi.set_PWM_dutycycle(motor_1_pwm,0)
