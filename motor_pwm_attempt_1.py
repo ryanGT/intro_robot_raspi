@@ -21,14 +21,17 @@ pi.set_PWM_range(motor_1_pwm, 100)
 
 def command_motor_1(speed):
     if speed > 0:
+        print('forward')
         pi.write(motor_1_in1, 1)
         pi.write(motor_1_in2, 0)
         pi.set_PWM_dutycycle(motor_1_pwm,speed)
     elif speed < 0:
+        print('reverse')
         pi.write(motor_1_in1, 0)
         pi.write(motor_1_in2, 1)
         pi.set_PWM_dutycycle(motor_1_pwm,abs(speed))
     else:
+        print('stopping')
         pi.set_PWM_dutycycle(motor_1_pwm,0)
         pi.write(motor_1_in1, 0)
         pi.write(motor_1_in2, 0)
