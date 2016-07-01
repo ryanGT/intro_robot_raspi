@@ -1,3 +1,4 @@
+from numpy import *
 import time
 import pigpio
 
