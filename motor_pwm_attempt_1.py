@@ -87,24 +87,32 @@ def command_motor_2(speed):
 ## command_motor_2(50)
 ## time.sleep(0.5)
 
-def demo1(listin, mydelay=1.0):
+def _demo(listin, cmd=command_motor_1, mydelay=1.0):
     for speed in listin:
+        print('speed: %i' % speed)
         command_motor_1(speed)
         time.sleep(mydelay)
+
+
+def demo1(listin, mydelay=1.0):
+    _demo(listin, cmd=command_motor_1, mydelay=mydelay)
+
+def demo2(listin, mydelay=1.0):
+    _demo(listin, cmd=command_motor_2, mydelay=mydelay)
 
 
 case = 1
 
 if case == 1:
     list1 = arange(0,105,10)
-    demo1(list1)
+    demo2(list1)
     list1b = arange(100, -5, 10)
-    demo1(list1b)
+    demo2(list1b)
 elif case == 2:
     list1neg = arange(0,-105,-10)
-    demo1(list1neg)
+    demo2(list1neg)
     list1negb = arange(-100,5,10)
-    demo1(list1negb)
+    demo2(list1negb)
 #cleanup
 for pin in pwm_pins:
     pi.set_PWM_dutycycle(pin,0)
