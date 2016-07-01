@@ -33,17 +33,17 @@ for pin in pwm_pins:
 
 def command_motor_1(speed):
     if speed > 0:
-        print('forward')
+        #print('forward')
         pi.write(motor_1_in1, 0)
         pi.write(motor_1_in2, 1)
         pi.set_PWM_dutycycle(motor_1_pwm,speed)
     elif speed < 0:
-        print('reverse')
+        #print('reverse')
         pi.write(motor_1_in1, 1)
         pi.write(motor_1_in2, 0)
         pi.set_PWM_dutycycle(motor_1_pwm,abs(speed))
     else:
-        print('stopping')
+        #print('stopping')
         pi.set_PWM_dutycycle(motor_1_pwm,0)
         pi.write(motor_1_in1, 0)
         pi.write(motor_1_in2, 0)
@@ -90,7 +90,7 @@ def command_motor_2(speed):
 def _demo(listin, cmd=command_motor_1, mydelay=1.0):
     for speed in listin:
         print('speed: %i' % speed)
-        command_motor_1(speed)
+        cmd(speed)
         time.sleep(mydelay)
 
 
@@ -106,7 +106,7 @@ case = 1
 if case == 1:
     list1 = arange(0,105,10)
     demo2(list1)
-    list1b = arange(100, -5, 10)
+    list1b = arange(100, -5, -10)
     demo2(list1b)
 elif case == 2:
     list1neg = arange(0,-105,-10)
