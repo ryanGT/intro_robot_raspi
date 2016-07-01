@@ -66,27 +66,44 @@ def command_motor_2(speed):
         pi.write(motor_2_in4, 0)
 
 
-command_motor_1(50)
-command_motor_2(50)
-time.sleep(1.0)
+## command_motor_1(50)
+## command_motor_2(50)
+## time.sleep(1.0)
 
-command_motor_1(-25)
-command_motor_2(-25)
-time.sleep(0.5)
+## command_motor_1(-25)
+## command_motor_2(-25)
+## time.sleep(0.5)
 
-command_motor_1(-50)
-command_motor_2(-50)
-time.sleep(1.0)
+## command_motor_1(-50)
+## command_motor_2(-50)
+## time.sleep(1.0)
 
-command_motor_1(50)
-command_motor_2(-50)
-time.sleep(0.5)
+## command_motor_1(50)
+## command_motor_2(-50)
+## time.sleep(0.5)
 
-command_motor_1(-50)
-command_motor_2(50)
-time.sleep(0.5)
+## command_motor_1(-50)
+## command_motor_2(50)
+## time.sleep(0.5)
+
+def demo1(listin, mydelay=1.0):
+    for speed in listin:
+        command_motor_1(speed)
+        time.sleep(mydelay)
 
 
+case = 1
+
+if case == 1:
+    list1 = arange(0,105,10)
+    demo1(list1)
+    list1b = arange(100, -5, 10)
+    demo1(list1b)
+elif case == 2:
+    list1neg = arange(0,-105,-10)
+    demo1(list1neg)
+    list1negb = arange(-100,5,10)
+    demo1(list1negb)
 #cleanup
 for pin in pwm_pins:
     pi.set_PWM_dutycycle(pin,0)
