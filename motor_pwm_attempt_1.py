@@ -5,9 +5,9 @@ import pigpio
 import argparse
 parser = argparse.ArgumentParser()
 #parser.add_argument('--example', nargs='?', const=1, type=int, default=3)
-parser.add_argument('case', type=int, default=1, nargs=1, \
+parser.add_argument('case', type=int, default=1, \
                     help='test case')
-parser.add_argument('speed', type=int, default=50, nargs=1, \
+parser.add_argument('speed', type=int, default=50, \
                     help='motor speed')
 
 args = parser.parse_args()
