@@ -127,7 +127,7 @@ elif case == 2:
     list1negb = arange(-100,5,10)
     demo1(list1negb)
 elif case == 3:
-    myspeed = 20
+    myspeed = args.speed
     print('speed: %i' % myspeed)
     command_motor_1(myspeed)
     command_motor_2(myspeed)
