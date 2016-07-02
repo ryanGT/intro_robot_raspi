@@ -2,13 +2,25 @@ from numpy import *
 import time
 import pigpio
 
-motor_1_pwm = 4
-motor_1_in1 = 17
-motor_1_in2 = 27
+import argparse
+parser = argparse.ArgumentParser()
+#parser.add_argument('--example', nargs='?', const=1, type=int, default=3)
+parser.add_argument('case', type=int, default=1, nargs=1, \
+                    help='test case')
+parser.add_argument('speed', type=int, default=50, nargs=1, \
+                    help='motor speed')
 
-motor_2_pwm = 16
-motor_2_in4 = 20
-motor_2_in3 = 21
+args = parser.parse_args()
+
+
+motor_1_pwm = 16
+motor_1_in1 = 20
+motor_1_in2 = 21
+
+motor_2_pwm = 4
+motor_2_in3 = 17
+motor_2_in4 = 27
+
 
 #connect to pigpiod daemon
 pi = pigpio.pi()
@@ -101,18 +113,28 @@ def demo2(listin, mydelay=1.0):
     _demo(listin, cmd=command_motor_2, mydelay=mydelay)
 
 
-case = 1
+case = args.case
+print('case: %i' % case)
 
 if case == 1:
     list1 = arange(0,105,10)
-    demo2(list1)
+    demo1(list1)
     list1b = arange(100, -5, -10)
-    demo2(list1b)
+    demo1(list1b)
 elif case == 2:
     list1neg = arange(0,-105,-10)
-    demo2(list1neg)
+    demo1(list1neg)
     list1negb = arange(-100,5,10)
-    demo2(list1negb)
+    demo1(list1negb)
+elif case == 3:
+    myspeed = 20
+    print('speed: %i' % myspeed)
+    command_motor_1(myspeed)
+    command_motor_2(myspeed)
+    time.sleep(1.0)
+
+
+
 #cleanup
 for pin in pwm_pins:
     pi.set_PWM_dutycycle(pin,0)
