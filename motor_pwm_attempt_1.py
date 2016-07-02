@@ -64,13 +64,13 @@ def command_motor_1(speed):
 def command_motor_2(speed):
     if speed > 0:
         #print('forward')
-        pi.write(motor_2_in3, 0)
-        pi.write(motor_2_in4, 1)
+        pi.write(motor_2_in3, 1)
+        pi.write(motor_2_in4, 0)
         pi.set_PWM_dutycycle(motor_2_pwm,speed)
     elif speed < 0:
         #print('reverse')
-        pi.write(motor_2_in3, 1)
-        pi.write(motor_2_in4, 0)
+        pi.write(motor_2_in3, 0)
+        pi.write(motor_2_in4, 1)
         pi.set_PWM_dutycycle(motor_2_pwm,abs(speed))
     else:
         #print('stopping')
