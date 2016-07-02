@@ -20,8 +20,8 @@ pi.set_PWM_dutycycle(pwm_pin,25)
 #time.sleep(0.5)
 
 #cleanup
-#pi.set_PWM_dutycycle(pwm_pin,0)
-#pi.set_mode(pwm_pin, pigpio.INPUT)
+pi.set_PWM_dutycycle(pwm_pin,0)
+pi.set_mode(pwm_pin, pigpio.INPUT)
 
 #disconnect
 pi.stop()
