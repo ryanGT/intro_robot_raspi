@@ -9,15 +9,15 @@ pi = pigpio.pi()
 # setup pin as an output
 pi.set_mode(pwm_pin, pigpio.OUTPUT)
 
+
 # pi set frequency
-pi.set_PWM_frequency(pwm_pin, 1000)
+freq = 1000
+pi.set_PWM_frequency(pwm_pin, freq)
 pi.set_PWM_range(pwm_pin, 100)
 
-#pi.set_PWM_dutycycle(pwm_pin,75)
-#time.sleep(0.5)
-
-pi.set_PWM_dutycycle(pwm_pin,25)
-#time.sleep(0.5)
+dc = 75
+pi.set_PWM_dutycycle(pwm_pin,dc)
+time.sleep(1.0)
 
 #cleanup
 pi.set_PWM_dutycycle(pwm_pin,0)
